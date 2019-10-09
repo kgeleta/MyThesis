@@ -4,8 +4,8 @@
   )
 
   # install dependencies
-  Write-Host "Installing dependencies" -foregroundcolor green
-  .paket\paket.exe install
+  # Write-Host "Installing dependencies" -foregroundcolor green
+  # .paket\paket.exe install
 
   # run unit test
   if($test -eq $true)
