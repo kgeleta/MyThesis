@@ -18,9 +18,12 @@ dotnet ef dbcontext scaffold $connectionString Microsoft.EntityFrameworkCore.Sql
 
 Write-Host "Copying Model directory to Assets" -foregroundcolor green
 cd ..
-Copy-Item -Path .\Feedback\Model -Destination .\Assets -Recurse
+Copy-Item -Path .\Feedback\Model -Destination .\Assets -Recurse -Force
 
 Write-Host "Removing Feedback directory" -foregroundcolor green
 Remove-Item .\Feedback -Recurse
 
 Write-Host "All done" -foregroundcolor green
+exit 0
+
+#TODO: add error handling and exit codes
