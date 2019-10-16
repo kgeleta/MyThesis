@@ -145,7 +145,7 @@
     <Compile Include="Configuration\ConfigurationConstants.cs" />
     <Compile Include="Configuration\XmlValidator.cs" />
     <Compile Include="Configuration\IConfigReader.cs" />
-    <Compile Include="Persistence\ModelGenerator.cs" />
+    <Compile Include="Persistence\PowerShellExecutor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

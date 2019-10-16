@@ -3,8 +3,10 @@ using UnityFeedback.Configuration;
 
 namespace UnityFeedback.Persistence
 {
-	public class ModelGenerator
+	public class PowerShellExecutor
 	{
+
+		// TODO: add events for output and error
 		public static void Execute()
 		{
 			var psi = new ProcessStartInfo("powershell.exe", "powershell/generateModel.ps1")
@@ -34,7 +36,7 @@ namespace UnityFeedback.Persistence
 			process.BeginErrorReadLine();
 
 			// write to stdin
-			process.StandardInput.WriteLine(AppSettings.Instance.ConnectionString);
+			process.StandardInput.WriteLine(AppSettings.Instance.ConnectionString());
 
 		}
 
