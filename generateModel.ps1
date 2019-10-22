@@ -25,7 +25,7 @@ try
     }
     "MySql"
     {
-      dotnet add package MySql.Data.EntityFrameworkCore -v 8.0.17
+      dotnet add package MySql.Data.EntityFrameworkCore -v 8.0.18
       dotnet add package Microsoft.EntityFrameworkCore.Design -v 2.2.6
 
       Write-Host "Generating model classes" -foregroundcolor green
