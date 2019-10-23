@@ -1,8 +1,8 @@
 ## Building
 
 ### Requirements:
-- PowerShell 5.1 or newer (for Linux users: [PowerShell Core 6.0](https://docs.microsoft.com/en-gb/powershell/scripting/install/installing-powershell-core-on-linux?view=powershell-6))
-- dotnet 2.2 or newer
+- PowerShell 5.1 or later (for Linux users: [PowerShell Core 6.0](https://docs.microsoft.com/en-gb/powershell/scripting/install/installing-powershell-core-on-linux?view=powershell-6))
+- dotnet 2.2 or later
 
 Open PowerShell in cloned repository and run:
 `./build.ps1 "path_to_your_unity_project"`
