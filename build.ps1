@@ -1,11 +1,7 @@
   param (
-    [Parameter(Mandatory=$false, Position = 0)][string]$path,
+    [Parameter(Mandatory=$true, Position = 0)][string]$path,
     [Parameter(Mandatory=$false)][switch]$test
   )
-
-  # install dependencies
-  # Write-Host "Installing dependencies" -foregroundcolor green
-  # .paket\paket.exe install
 
   # run unit test
   if($test -eq $true)
@@ -16,11 +12,11 @@
   }
 
   # build project
-  if($path)
-  {
-    Write-Host "Building project to specified location: $path" -foregroundcolor green
-    dotnet build "UnityFeedback\UnityFeedback.csproj" -c Release -f net461 -o $($path)
-  } else{
-    Write-Host "Building project" -foregroundcolor green
-    dotnet build "UnityFeedback\UnityFeedback.csproj"
-  }
+  Write-Host "Building project to specified location: $path" -foregroundcolor green
+  dotnet build "UnityFeedback\UnityFeedback.csproj" -c Debug -f net461 -o "$($path)\Assets\Plugins"
+
+  # remove unityEditor.dll from output folder
+  Remove-Item "$($path)\Assets\Plugins\UnityEngine.dll"
+
+  # move powershell script to project
+  Copy-Item -Path .\generateModel.ps1 -Destination "$($path)\PowerShell" -Force
