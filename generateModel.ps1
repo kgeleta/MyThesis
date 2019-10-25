@@ -3,6 +3,7 @@ param (
   [Parameter(Mandatory=$true, Position = 1)][ValidateSet('sqlServer','MySql','SQLite', 'PostgreSQL')][string]$provider
 )
 
+$exitCode = 0
 Write-Host "Creating new project" -foregroundcolor green
 mkdir Feedback
 cd Feedback
@@ -59,9 +60,14 @@ try
   cd ..
   Copy-Item -Path .\Feedback\Model -Destination .\Assets -Recurse -Force
 }
+catch
+{
+  $exitCode = 1
+}
 finally
 {
   Write-Host "Removing Feedback directory" -foregroundcolor green
   Remove-Item .\Feedback -Recurse
   Write-Host "All done" -foregroundcolor green
+  Exit $exitCode
 }
