@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Text;
 using UnityFeedback.Configuration;
 
 namespace UnityFeedback.Persistence
@@ -10,7 +11,7 @@ namespace UnityFeedback.Persistence
 	/// </summary>
 	public class ModelGenerator
 	{
-		private readonly Process _process;
+		private readonly StringBuilder _errorBuilder = new StringBuilder();
 
 		#region Events
 
@@ -21,26 +22,16 @@ namespace UnityFeedback.Persistence
 
 		#endregion
 
-		#region Properties
-
 		/// <summary>
-		/// Gets error message if <see cref="ModelGenerator.Generate"/> returned <see cref="ExitStatus.ExitFailure"/> or empty string otherwise.
+		/// Generates model classes to \Assets\Models directory.
 		/// </summary>
-		public string ErrorMessage { get; private set; } = string.Empty;
-
-		/// <summary>
-		/// Gets all output from stdout.
-		/// </summary>
-		public string OutputMessage { get; private set; } = string.Empty;
-
-		#endregion
-
-		public ModelGenerator()
+		/// <param name="provider">Database provider.</param>
+		/// <param name="connectionString">Connection string from database.</param>
+		public ProcessResult Generate(DatabaseProvider provider, string connectionString)
 		{
 			var psi = new ProcessStartInfo("powershell.exe", ConfigurationConstants.InternalConstants.MODEL_SCRIPT_PATH)
 			{
 				UseShellExecute = false,
-				ErrorDialog = false,
 				CreateNoWindow = true,
 				WindowStyle = ProcessWindowStyle.Hidden,
 				RedirectStandardError = true,
@@ -48,53 +39,80 @@ namespace UnityFeedback.Persistence
 				RedirectStandardOutput = true
 			};
 
-			this._process = new Process()
+			var process = new Process()
 			{
 				StartInfo = psi
 
 			};
 
 			// redirect stdout and stderr
-			_process.OutputDataReceived += (sender, args) =>
+			process.OutputDataReceived += (sender, args) =>
 				OnOutputReceived(new OutputEventArgs(OutputType.StandardOutput, args.Data));
-			_process.ErrorDataReceived += (sender, args) =>
+			process.ErrorDataReceived += (sender, args) =>
 				OnOutputReceived(new OutputEventArgs(OutputType.StandardError, args.Data));
-		}
-
-		/// <summary>
-		/// Generates model classes to \Assets\Models directory.
-		/// </summary>
-		/// <param name="provider">Database provider</param>
-		public ExitStatus Generate(DatabaseProvider provider)
-		{
-			_process.Start();
-
-			_process.BeginOutputReadLine();
-			_process.BeginErrorReadLine();
-
-			// write to stdin
-			// first argument is connection string
-			_process.StandardInput.WriteLine(AppSettings.Instance.ConnectionString(false));
-			// second argument is DB provider
-			_process.StandardInput.WriteLine(provider.ToString());
-
-			_process.WaitForExit();
-
-			this.OutputMessage = _process.StandardOutput.ReadToEnd();
-			if (_process.ExitCode != 0)
+			var result = new ProcessResult();
+			var started = false;
+			try
 			{
-				this.ErrorMessage = _process.StandardError.ReadToEnd();
-				return ExitStatus.ExitFailure;
+				started = process.Start();
+			}
+			catch (Exception e)
+			{
+				result.ExitStatus = ExitStatus.ExitFailure;
+				result.ErrorMessage = e.Message;
 			}
 
-			return ExitStatus.ExitSuccess;
+			if (started)
+			{
+				process.BeginOutputReadLine();
+				process.BeginErrorReadLine();
+
+				// write to stdin
+				// first argument is connection string
+				process.StandardInput.WriteLine(connectionString);
+				// second argument is DB provider
+				process.StandardInput.WriteLine(provider.ToString());
+				process.StandardInput.Flush();
+
+				process.WaitForExit();
+
+				if (process.ExitCode != 0)
+				{
+					result.ExitStatus = ExitStatus.ExitFailure;
+					result.ErrorMessage = this._errorBuilder.ToString();
+				}
+				else
+				{
+					result.ExitStatus = ExitStatus.ExitSuccess;
+					result.ErrorMessage = string.Empty;
+				}
+			}
+
+			process.StandardInput.Close();
+
+			return result;
 		}
 
 		protected virtual void OnOutputReceived(OutputEventArgs e)
 		{
+			if (string.IsNullOrEmpty(e.Data))
+			{
+				return;
+			}
+
+			if (e.OutputType == OutputType.StandardError)
+			{
+				this._errorBuilder.Append(e.Data);
+			}
+
 			var handler = OutputReceived;
 			handler?.Invoke(this, e);
 		}
 
+		public struct ProcessResult
+		{
+			public ExitStatus ExitStatus;
+			public string ErrorMessage;
+		}
 	}
 }
