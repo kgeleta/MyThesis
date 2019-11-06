@@ -8,12 +8,14 @@
         {
             public const string SCENES = "scene";
             public const string CONNECTION_STRING = "connectionString";
+            public const string DATABASE_PROVIDER = "databaseProvider";
+            public const string POWERSHELL_PATH = "powershellPath";
         }
 
         public static class Attribute
         {
-            public const string SCENES = "path";
-            public const string CONNECTION_STRING = "value";
+            public const string PATH = "path";
+            public const string VALUE = "value";
         }
 
         internal class InternalConstants
