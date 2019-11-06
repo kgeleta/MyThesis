@@ -62,17 +62,20 @@ namespace UnityFeedback.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;xs:schema attributeFormDefault=&quot;unqualified&quot; elementFormDefault=&quot;qualified&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;
+        ///&lt;xs:simpleType name=&quot;provider&quot;&gt;
+        ///&lt;xs:restriction base=&quot;xs:string&quot;&gt;
+        ///  &lt;xs:enumeration value=&quot;SqlServer&quot; /&gt;
+        ///  &lt;xs:enumeration value=&quot;MySql&quot; /&gt;
+        ///  &lt;xs:enumeration value=&quot;SQLite&quot; /&gt;
+        ///  &lt;xs:enumeration value=&quot;PostgreSQL&quot; /&gt;
+        ///&lt;/xs:restriction&gt;
+        ///&lt;/xs:simpleType&gt;
+        ///
         ///  &lt;xs:element name=&quot;config&quot;&gt;
         ///    &lt;xs:complexType&gt;
         ///      &lt;xs:sequence&gt;
         ///        &lt;xs:element name=&quot;scenes&quot;&gt;
-        ///          &lt;xs:complexType&gt;
-        ///            &lt;xs:sequence&gt;
-        ///              &lt;xs:element name=&quot;scene&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;1&quot;&gt;
-        ///                &lt;xs:complexType&gt;
-        ///                  &lt;xs:simpleContent&gt;
-        ///                    &lt;xs:extension base=&quot;xs:string&quot;&gt;
-        ///                      &lt; [rest of string was truncated]&quot;;.
+        ///          &lt;xs:compl [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Schema {
             get {

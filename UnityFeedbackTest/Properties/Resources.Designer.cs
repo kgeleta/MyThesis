@@ -67,6 +67,11 @@ namespace UnityFeedbackTest.Properties {
         ///  &lt;/scenes&gt;
         ///
         ///  &lt;connectionString value=&quot;Server=BMO\SQLEXPRESS;Database=kgeleta;User Id=admin;Password=Test1234!;&quot;/&gt;
+        ///
+        ///  &lt;powershellPath path=&quot;%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe&quot;/&gt;
+        ///
+        ///  &lt;databaseProvider value=&quot;SqlServer&quot;/&gt;
+        ///
         ///&lt;/config&gt;.
         /// </summary>
         internal static string EmptyScenes {
@@ -89,7 +94,29 @@ namespace UnityFeedbackTest.Properties {
         ///    &lt;scene path=&quot;Assets/Scenes/Scene8.unity&quot;/&gt;
         ///  &lt;/scenes&gt;
         ///
-        ///&lt;/config&gt;.
+        ///  &lt;connectionString value=&quot;Server=BMO\SQLEXPRESS;D [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string InvalidDatabaseProvider {
+            get {
+                return ResourceManager.GetString("InvalidDatabaseProvider", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+        ///&lt;config&gt;
+        ///  &lt;scenes&gt;
+        ///    &lt;scene path=&quot;Assets/Scenes/Scene1.unity&quot;/&gt;
+        ///    &lt;scene path=&quot;Assets/Scenes/Scene2.unity&quot;/&gt;
+        ///    &lt;scene path=&quot;Assets/Scenes/Scene3.unity&quot;/&gt;
+        ///    &lt;scene path=&quot;Assets/Scenes/Scene4.unity&quot;/&gt;
+        ///    &lt;scene path=&quot;Assets/Scenes/Scene5.unity&quot;/&gt;
+        ///    &lt;scene path=&quot;Assets/Scenes/Scene6.unity&quot;/&gt;
+        ///    &lt;scene path=&quot;Assets/Scenes/Scene7.unity&quot;/&gt;
+        ///    &lt;scene path=&quot;Assets/Scenes/Scene8.unity&quot;/&gt;
+        ///  &lt;/scenes&gt;
+        ///
+        ///  &lt;powershellPath path=&quot;%SystemRoot%\system32\Wind [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string NoConnectionString {
             get {
@@ -123,6 +150,10 @@ namespace UnityFeedbackTest.Properties {
         ///&lt;config&gt;
         ///
         ///  &lt;connectionString value=&quot;Server=BMO\SQLEXPRESS;Database=kgeleta;User Id=admin;Password=Test1234!;&quot;/&gt;
+        ///
+        ///  &lt;powershellPath path=&quot;%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe&quot;/&gt;
+        ///
+        ///  &lt;databaseProvider value=&quot;SqlServer&quot;/&gt;
         ///&lt;/config&gt;.
         /// </summary>
         internal static string NoScenes {
@@ -133,17 +164,20 @@ namespace UnityFeedbackTest.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;xs:schema attributeFormDefault=&quot;unqualified&quot; elementFormDefault=&quot;qualified&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;
+        ///&lt;xs:simpleType name=&quot;provider&quot;&gt;
+        ///&lt;xs:restriction base=&quot;xs:string&quot;&gt;
+        ///  &lt;xs:enumeration value=&quot;SqlServer&quot; /&gt;
+        ///  &lt;xs:enumeration value=&quot;MySql&quot; /&gt;
+        ///  &lt;xs:enumeration value=&quot;SQLite&quot; /&gt;
+        ///  &lt;xs:enumeration value=&quot;PostgreSQL&quot; /&gt;
+        ///&lt;/xs:restriction&gt;
+        ///&lt;/xs:simpleType&gt;
+        ///
         ///  &lt;xs:element name=&quot;config&quot;&gt;
         ///    &lt;xs:complexType&gt;
         ///      &lt;xs:sequence&gt;
         ///        &lt;xs:element name=&quot;scenes&quot;&gt;
-        ///          &lt;xs:complexType&gt;
-        ///            &lt;xs:sequence&gt;
-        ///              &lt;xs:element name=&quot;scene&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;1&quot;&gt;
-        ///                &lt;xs:complexType&gt;
-        ///                  &lt;xs:simpleContent&gt;
-        ///                    &lt;xs:extension base=&quot;xs:string&quot;&gt;
-        ///                      &lt; [rest of string was truncated]&quot;;.
+        ///          &lt;xs:compl [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Schema {
             get {

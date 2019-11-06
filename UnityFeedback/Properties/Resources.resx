@@ -119,6 +119,15 @@
   </resheader>
   <data name="Schema" xml:space="preserve">
     <value>&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+&lt;xs:simpleType name="provider"&gt;
+&lt;xs:restriction base="xs:string"&gt;
+  &lt;xs:enumeration value="SqlServer" /&gt;
+  &lt;xs:enumeration value="MySql" /&gt;
+  &lt;xs:enumeration value="SQLite" /&gt;
+  &lt;xs:enumeration value="PostgreSQL" /&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+
   &lt;xs:element name="config"&gt;
     &lt;xs:complexType&gt;
       &lt;xs:sequence&gt;
@@ -129,7 +138,7 @@
                 &lt;xs:complexType&gt;
                   &lt;xs:simpleContent&gt;
                     &lt;xs:extension base="xs:string"&gt;
-                      &lt;xs:attribute type="xs:string" name="path" use="required"/&gt;
+                      &lt;xs:attribute type="xs:string" name="path" use="optional"/&gt;
                     &lt;/xs:extension&gt;
                   &lt;/xs:simpleContent&gt;
                 &lt;/xs:complexType&gt;
@@ -142,6 +151,24 @@
             &lt;xs:simpleContent&gt;
               &lt;xs:extension base="xs:string"&gt;
                 &lt;xs:attribute type="xs:string" name="value"/&gt;
+              &lt;/xs:extension&gt;
+            &lt;/xs:simpleContent&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="powershellPath"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:simpleContent&gt;
+              &lt;xs:extension base="xs:string"&gt;
+                &lt;xs:attribute type="xs:string" name="path"/&gt;
+              &lt;/xs:extension&gt;
+            &lt;/xs:simpleContent&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="databaseProvider"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:simpleContent&gt;
+              &lt;xs:extension base="xs:string"&gt;
+                &lt;xs:attribute type="provider" name="value"/&gt;
               &lt;/xs:extension&gt;
             &lt;/xs:simpleContent&gt;
           &lt;/xs:complexType&gt;

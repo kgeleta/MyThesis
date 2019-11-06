@@ -23,5 +23,14 @@ namespace UnityFeedbackTest.Configuration
 
 			Assert.AreEqual(expected, actual);
 		}
+
+		[Test]
+		public void ShouldReadDatabaseProvider()
+		{
+			var actual = _appSettings.DatabaseProvider();
+			var expected = UnityFeedback.Persistence.DatabaseProvider.SqlServer;
+
+			Assert.AreEqual(expected, actual);
+		}
 	}
 }

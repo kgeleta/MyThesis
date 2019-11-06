@@ -124,6 +124,33 @@
   &lt;/scenes&gt;
 
   &lt;connectionString value="Server=BMO\SQLEXPRESS;Database=kgeleta;User Id=admin;Password=Test1234!;"/&gt;
+
+  &lt;powershellPath path="%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe"/&gt;
+
+  &lt;databaseProvider value="SqlServer"/&gt;
+
+&lt;/config&gt;</value>
+  </data>
+  <data name="InvalidDatabaseProvider" xml:space="preserve">
+    <value>&lt;?xml version="1.0" encoding="utf-8" ?&gt;
+&lt;config&gt;
+  &lt;scenes&gt;
+    &lt;scene path="Assets/Scenes/Scene1.unity"/&gt;
+    &lt;scene path="Assets/Scenes/Scene2.unity"/&gt;
+    &lt;scene path="Assets/Scenes/Scene3.unity"/&gt;
+    &lt;scene path="Assets/Scenes/Scene4.unity"/&gt;
+    &lt;scene path="Assets/Scenes/Scene5.unity"/&gt;
+    &lt;scene path="Assets/Scenes/Scene6.unity"/&gt;
+    &lt;scene path="Assets/Scenes/Scene7.unity"/&gt;
+    &lt;scene path="Assets/Scenes/Scene8.unity"/&gt;
+  &lt;/scenes&gt;
+
+  &lt;connectionString value="Server=BMO\SQLEXPRESS;Database=kgeleta;User Id=admin;Password=Test1234!;"/&gt;
+
+  &lt;powershellPath path="%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe"/&gt;
+
+  &lt;databaseProvider value="INVALID"/&gt;
+
 &lt;/config&gt;</value>
   </data>
   <data name="NoConnectionString" xml:space="preserve">
@@ -140,6 +167,10 @@
     &lt;scene path="Assets/Scenes/Scene8.unity"/&gt;
   &lt;/scenes&gt;
 
+  &lt;powershellPath path="%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe"/&gt;
+
+  &lt;databaseProvider value="SqlServer"/&gt;
+
 &lt;/config&gt;</value>
   </data>
   <data name="NoRootElement" xml:space="preserve">
@@ -155,17 +186,34 @@
     &lt;scene path="Assets/Scenes/Scene8.unity"/&gt;
   &lt;/scenes&gt;
 
-  &lt;connectionString value="Server=BMO\SQLEXPRESS;Database=kgeleta;User Id=admin;Password=Test1234!;"/&gt;</value>
+  &lt;connectionString value="Server=BMO\SQLEXPRESS;Database=kgeleta;User Id=admin;Password=Test1234!;"/&gt;
+
+   &lt;powershellPath path="%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe"/&gt;
+
+  &lt;databaseProvider value="SqlServer"/&gt;</value>
   </data>
   <data name="NoScenes" xml:space="preserve">
     <value>&lt;?xml version="1.0" encoding="utf-8" ?&gt;
 &lt;config&gt;
 
   &lt;connectionString value="Server=BMO\SQLEXPRESS;Database=kgeleta;User Id=admin;Password=Test1234!;"/&gt;
+
+  &lt;powershellPath path="%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe"/&gt;
+
+  &lt;databaseProvider value="SqlServer"/&gt;
 &lt;/config&gt;</value>
   </data>
   <data name="Schema" xml:space="preserve">
     <value>&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+&lt;xs:simpleType name="provider"&gt;
+&lt;xs:restriction base="xs:string"&gt;
+  &lt;xs:enumeration value="SqlServer" /&gt;
+  &lt;xs:enumeration value="MySql" /&gt;
+  &lt;xs:enumeration value="SQLite" /&gt;
+  &lt;xs:enumeration value="PostgreSQL" /&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+
   &lt;xs:element name="config"&gt;
     &lt;xs:complexType&gt;
       &lt;xs:sequence&gt;
@@ -176,7 +224,7 @@
                 &lt;xs:complexType&gt;
                   &lt;xs:simpleContent&gt;
                     &lt;xs:extension base="xs:string"&gt;
-                      &lt;xs:attribute type="xs:string" name="path" use="required"/&gt;
+                      &lt;xs:attribute type="xs:string" name="path" use="optional"/&gt;
                     &lt;/xs:extension&gt;
                   &lt;/xs:simpleContent&gt;
                 &lt;/xs:complexType&gt;
@@ -189,6 +237,24 @@
             &lt;xs:simpleContent&gt;
               &lt;xs:extension base="xs:string"&gt;
                 &lt;xs:attribute type="xs:string" name="value"/&gt;
+              &lt;/xs:extension&gt;
+            &lt;/xs:simpleContent&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="powershellPath"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:simpleContent&gt;
+              &lt;xs:extension base="xs:string"&gt;
+                &lt;xs:attribute type="xs:string" name="path"/&gt;
+              &lt;/xs:extension&gt;
+            &lt;/xs:simpleContent&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="databaseProvider"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:simpleContent&gt;
+              &lt;xs:extension base="xs:string"&gt;
+                &lt;xs:attribute type="provider" name="value"/&gt;
               &lt;/xs:extension&gt;
             &lt;/xs:simpleContent&gt;
           &lt;/xs:complexType&gt;
@@ -213,6 +279,11 @@
   &lt;/scenes&gt;
 
   &lt;connectionString value="Server=BMO\SQLEXPRESS;Database=kgeleta;User Id=admin;Password=Test1234!;"/&gt;
+
+  &lt;powershellPath path="%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe"/&gt;
+
+  &lt;databaseProvider value="SqlServer"/&gt;
+
 &lt;/config&gt;</value>
   </data>
 </root>
