@@ -17,6 +17,10 @@
         /// <param name="attribute">Name of attribute to read.</param>
         /// <returns>All node's values as array of string.</returns>
         string[] ReadArrayNode(string nodeName, string attribute);
-    
+
+		/// <summary>
+		/// Updates configuration.
+		/// </summary>
+        void RefreshConfiguration();
     }
 }

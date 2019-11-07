@@ -133,7 +133,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\AppSettings.cs" />
-    <Compile Include="Configuration\ConfigReaderFile.cs" />
     <Compile Include="Configuration\ConfigReaderString.cs" />
     <Compile Include="Configuration\ConfigurationConstants.cs" />
     <Compile Include="Configuration\XmlValidator.cs" />

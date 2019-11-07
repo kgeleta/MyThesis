@@ -3,21 +3,25 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml;
+using UnityEngine;
 
 namespace UnityFeedback.Configuration
 {
 	public class ConfigReaderString : IConfigReader
 	{
-		private readonly string _configString;
+		private string _configString;
+		private Func<string> _getConfigurationMethod;
 
-		public ConfigReaderString(string configString)
+		// TODO: this constructor shoud take Func<string> instead of string
+		public ConfigReaderString(Func<string> getConfiguration)
 		{
-			if (string.IsNullOrEmpty(configString))
+			this._configString = getConfiguration();
+			this._getConfigurationMethod = getConfiguration;
+
+			if (string.IsNullOrEmpty(this._configString))
 			{
 				throw new ArgumentException();
 			}
-			// save string
-			_configString = configString;
 		}
 
 		/// <inheritdoc cref="IConfigReader"/>
@@ -60,6 +64,12 @@ namespace UnityFeedback.Configuration
 
 				return result.ToArray();
 			}
+		}
+
+		///  <inheritdoc cref="IConfigReader"/>
+		public void RefreshConfiguration()
+		{
+			this._configString = this._getConfigurationMethod();
 		}
 
 		/// <summary>
