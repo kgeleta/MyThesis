@@ -133,6 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\AppSettings.cs" />
+    <Compile Include="Configuration\ConfigFileGenerator.cs" />
     <Compile Include="Configuration\ConfigReaderString.cs" />
     <Compile Include="Configuration\ConfigurationConstants.cs" />
     <Compile Include="Configuration\XmlValidator.cs" />
@@ -153,6 +154,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -117,6 +117,27 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DefaultConfiguration" xml:space="preserve">
+    <value>&lt;?xml version="1.0" encoding="utf-8" ?&gt;
+&lt;config&gt;
+  &lt;!-- Specify all scenes in correct order --&gt;
+  &lt;scenes&gt;
+    &lt;scene path="Assets/Scenes/Scene1.unity"/&gt;
+    &lt;scene path="Assets/Scenes/Scene2.unity"/&gt;
+  &lt;/scenes&gt;
+
+  &lt;connectionString value="Server=YourServer;Database=YourDatabase;User Id=admin;Password=password;"/&gt;
+
+  &lt;!-- if PowerShell is added to path variable you can leave this option as is --&gt;
+  &lt;powershellPath path="powershell.exe"/&gt;
+
+  &lt;!-- uncomment option with your database provider --&gt;
+  &lt;databaseProvider value="SqlServer"/&gt;
+  &lt;!-- &lt;databaseProvider value="MySql"/&gt; --&gt;
+  &lt;!-- &lt;databaseProvider value="SQLite"/&gt; --&gt;
+  &lt;!-- &lt;databaseProvider value="SQLite"/&gt; --&gt;
+&lt;/config&gt;</value>
+  </data>
   <data name="Schema" xml:space="preserve">
     <value>&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
 &lt;xs:simpleType name="provider"&gt;

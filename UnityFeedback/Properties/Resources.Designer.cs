@@ -61,6 +61,28 @@ namespace UnityFeedback.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+        ///&lt;config&gt;
+        ///  &lt;!-- Specify all scenes in correct order --&gt;
+        ///  &lt;scenes&gt;
+        ///    &lt;scene path=&quot;Assets/Scenes/Scene1.unity&quot;/&gt;
+        ///    &lt;scene path=&quot;Assets/Scenes/Scene2.unity&quot;/&gt;
+        ///  &lt;/scenes&gt;
+        ///
+        ///  &lt;connectionString value=&quot;Server=YourServer;Database=YourDatabase;User Id=admin;Password=password;&quot;/&gt;
+        ///
+        ///  &lt;!-- if PowerShell is added to path variable you can leave this option as is --&gt;
+        ///  &lt;powershellPath path=&quot;powershell.exe&quot;/&gt;
+        ///
+        ///  &lt;!-- uncomment option with your database provider --&gt; [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DefaultConfiguration {
+            get {
+                return ResourceManager.GetString("DefaultConfiguration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;xs:schema attributeFormDefault=&quot;unqualified&quot; elementFormDefault=&quot;qualified&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;
         ///&lt;xs:simpleType name=&quot;provider&quot;&gt;
         ///&lt;xs:restriction base=&quot;xs:string&quot;&gt;
