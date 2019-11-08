@@ -12,6 +12,7 @@ namespace UnityFeedback.Persistence
 	public class ModelGenerator
 	{
 		private readonly StringBuilder _errorBuilder = new StringBuilder();
+		private readonly string _powerShellPath;
 
 		#region Events
 
@@ -22,14 +23,23 @@ namespace UnityFeedback.Persistence
 
 		#endregion
 
+		#region Constractors
+
+		public ModelGenerator(string powerShellPath)
+		{
+			this._powerShellPath = powerShellPath;
+		}
+
+		#endregion
+
 		/// <summary>
 		/// Generates model classes to \Assets\Models directory.
 		/// </summary>
 		/// <param name="provider">Database provider.</param>
 		/// <param name="connectionString">Connection string from database.</param>
-		public ProcessResult Generate(DatabaseProvider provider, string connectionString)
+		public GenerationResult Generate(DatabaseProvider provider, string connectionString)
 		{
-			var psi = new ProcessStartInfo("powershell.exe", ConfigurationConstants.InternalConstants.MODEL_SCRIPT_PATH)
+			var psi = new ProcessStartInfo(this._powerShellPath, ConfigurationConstants.InternalConstants.MODEL_SCRIPT_PATH)
 			{
 				UseShellExecute = false,
 				CreateNoWindow = true,
@@ -42,7 +52,6 @@ namespace UnityFeedback.Persistence
 			var process = new Process()
 			{
 				StartInfo = psi
-
 			};
 
 			// redirect stdout and stderr
@@ -50,7 +59,7 @@ namespace UnityFeedback.Persistence
 				OnOutputReceived(new OutputEventArgs(OutputType.StandardOutput, args.Data));
 			process.ErrorDataReceived += (sender, args) =>
 				OnOutputReceived(new OutputEventArgs(OutputType.StandardError, args.Data));
-			var result = new ProcessResult();
+			var result = new GenerationResult();
 			var started = false;
 			try
 			{
@@ -109,7 +118,7 @@ namespace UnityFeedback.Persistence
 			handler?.Invoke(this, e);
 		}
 
-		public struct ProcessResult
+		public struct GenerationResult
 		{
 			public ExitStatus ExitStatus;
 			public string ErrorMessage;
