@@ -2,6 +2,7 @@
 using Moq;
 using NUnit.Framework;
 using UnityFeedback.Configuration;
+using UnityFeedback.Persistence;
 
 namespace UnityFeedbackTest.Configuration
 {
@@ -24,23 +25,31 @@ namespace UnityFeedbackTest.Configuration
 			this._appSettings = new AppSettings(_mockConfigReader.Object);
 		}
 
-		[Test]
-		public void ShouldGetDatabaseProvider()
+		[TestCase("SqlServer", DatabaseProvider.SqlServer)]
+		[TestCase("MySql", DatabaseProvider.MySql)]
+		[TestCase("SQLite", DatabaseProvider.SQLite)]
+		[TestCase("PostgreSQL", DatabaseProvider.PostgreSQL)]
+		public void ShouldGetDatabaseProvider(string databaseProvider, DatabaseProvider expected)
 		{
+			// Arrange
+			_mockConfigReader.Setup(foo => foo.ReadSingleNode(ConfigurationConstants.NodeName.DATABASE_PROVIDER,
+				ConfigurationConstants.Attribute.VALUE)).Returns(databaseProvider);
+
 			// Act
 			var actual = _appSettings.DatabaseProvider();
-			var expected = UnityFeedback.Persistence.DatabaseProvider.SqlServer;
-
+			
 			// Assert
 			Assert.AreEqual(expected, actual);
 		}
 
-		[Test]
-		public void ShouldThrowExceptionWhenInvalidDatabaseProvider()
+		[TestCase("INVALID")]
+		[TestCase("SQLSERVER")]
+		[TestCase("")]
+		public void ShouldThrowExceptionWhenInvalidDatabaseProvider(string databaseProvider)
 		{
 			// Arrange
 			_mockConfigReader.Setup(foo => foo.ReadSingleNode(ConfigurationConstants.NodeName.DATABASE_PROVIDER,
-				ConfigurationConstants.Attribute.VALUE)).Returns("INVALID");
+				ConfigurationConstants.Attribute.VALUE)).Returns(databaseProvider);
 
 			// Act & Assert
 			Assert.Throws<ArgumentException>(() => _appSettings.DatabaseProvider());
