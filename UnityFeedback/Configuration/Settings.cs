@@ -4,9 +4,9 @@ using UnityEngine;
 namespace UnityFeedback.Configuration
 {
 	/// <summary>
-	/// This class provides thread safe access to configuration file.
+	/// This class provides thread safe access to settings from configuration file.
 	/// </summary>
-	public class AppSettings
+	public class Settings
 	{
 		private readonly IConfigReader _configReader;
 		private readonly object _lockObject = new object();
@@ -20,7 +20,7 @@ namespace UnityFeedback.Configuration
 
 		#endregion
 
-		public AppSettings(IConfigReader configReader)
+		public Settings(IConfigReader configReader)
 		{
 			this._configReader = configReader;
 		}

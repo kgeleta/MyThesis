@@ -10,9 +10,8 @@ namespace UnityFeedback.Configuration
 	public class ConfigReaderString : IConfigReader
 	{
 		private string _configString;
-		private Func<string> _getConfigurationMethod;
+		private readonly Func<string> _getConfigurationMethod;
 
-		// TODO: this constructor shoud take Func<string> instead of string
 		public ConfigReaderString(Func<string> getConfiguration)
 		{
 			this._configString = getConfiguration();

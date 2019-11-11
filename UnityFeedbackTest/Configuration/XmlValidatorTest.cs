@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Xml;
 using UnityFeedback.Configuration;
 
 namespace UnityFeedbackTest.Configuration
@@ -8,51 +7,78 @@ namespace UnityFeedbackTest.Configuration
 	[TestFixture]
 	public class XmlValidatorTest
 	{
+		private XmlValidator _validator;
+
+		[SetUp]
+		public void Setup()
+		{
+			// Arrange
+			this._validator = new XmlValidator(UnityFeedbackTest.Properties.Resources.Schema);
+		}
+
 		[Test]
 		public void ShouldReturnTrueWhenValidXml()
 		{
-			Assert.True(XmlValidator.Validate(UnityFeedbackTest.Properties.Resources.Valid, UnityFeedbackTest.Properties.Resources.Schema));
+			// Act
+			var result = this._validator.Validate(UnityFeedbackTest.Properties.Resources.Valid);
+
+			// Assert
+			Assert.True(result.IsValid);
 		}
 
 		[Test]
-		public void ShouldThrowXmlExceptionWhenEmptyScenes()
+		public void ShouldReturnFalseWhenEmptyScenes()
 		{
-			var e = Assert.Throws<XmlException>(() => XmlValidator.Validate(UnityFeedbackTest.Properties.Resources.EmptyScenes,
-				UnityFeedbackTest.Properties.Resources.Schema));
-			Console.WriteLine(e.Message);
+			// Act
+			var result = this._validator.Validate(UnityFeedbackTest.Properties.Resources.EmptyScenes);
+
+			// Assert
+			Assert.False(result.IsValid);
+			Console.WriteLine(result.ErrorMessage);
 		}
 
 		[Test]
-		public void ShouldThrowXmlExceptionWhenNoConnectionString()
+		public void ShouldReturnFalseWhenNoConnectionString()
 		{
-			var e = Assert.Throws<XmlException>(() => XmlValidator.Validate(UnityFeedbackTest.Properties.Resources.NoConnectionString,
-				UnityFeedbackTest.Properties.Resources.Schema));
-			Console.WriteLine(e.Message);
+			// Arrange & Act
+			var result = this._validator.Validate(UnityFeedbackTest.Properties.Resources.NoConnectionString);
+
+			// Assert
+			Assert.False(result.IsValid);
+			Console.WriteLine(result.ErrorMessage);
 		}
 
 		[Test]
-		public void ShouldThrowXmlExceptionWhenNoRootElement()
+		public void ShouldReturnFalseWhenNoRootElement()
 		{
-			var e = Assert.Throws<XmlException>(() => XmlValidator.Validate(UnityFeedbackTest.Properties.Resources.NoRootElement,
-				UnityFeedbackTest.Properties.Resources.Schema));
-			Console.WriteLine(e.Message);
+			// Arrange & Act
+			var result = this._validator.Validate(UnityFeedbackTest.Properties.Resources.NoRootElement);
+
+			// Assert
+			Assert.False(result.IsValid);
+			Console.WriteLine(result.ErrorMessage);
 		}
 
 		[Test]
-		public void ShouldThrowXmlExceptionWhenNoScenes()
+		public void ShouldReturnFalseWhenNoScenes()
 		{
-			var e = Assert.Throws<XmlException>(() => XmlValidator.Validate(UnityFeedbackTest.Properties.Resources.NoScenes,
-				UnityFeedbackTest.Properties.Resources.Schema));
-			Console.WriteLine(e.Message);
+			// Arrange & Act
+			var result = this._validator.Validate(UnityFeedbackTest.Properties.Resources.NoScenes);
+
+			// Assert
+			Assert.False(result.IsValid);
+			Console.WriteLine(result.ErrorMessage);
 		}
 
 		[Test]
-		public void ShouldThrowXmlExceptionWhenInvalidDatabaseProvider()
+		public void ShouldReturnFalseWhenInvalidDatabaseProvider()
 		{
-			var e = Assert.Throws<XmlException>(() =>
-				XmlValidator.Validate(UnityFeedbackTest.Properties.Resources.InvalidDatabaseProvider,
-					UnityFeedbackTest.Properties.Resources.Schema));
-			Console.WriteLine($@"Error at line {e.LineNumber}, position {e.LinePosition}: {e.Message}");
+			// Arrange & Act
+			var result = this._validator.Validate(UnityFeedbackTest.Properties.Resources.InvalidDatabaseProvider);
+
+			// Assert
+			Assert.False(result.IsValid);
+			Console.WriteLine(result.ErrorMessage);
 		}
 	}
 }

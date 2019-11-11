@@ -1,15 +1,16 @@
 ﻿using System;
 using Moq;
 using NUnit.Framework;
+using UnityFeedback;
 using UnityFeedback.Configuration;
 using UnityFeedback.Persistence;
 
 namespace UnityFeedbackTest.Configuration
 {
 	[TestFixture]
-	public class AppSettingsTest
+	public class SettingsTest
 	{
-		private AppSettings _appSettings;
+		private Settings _settings;
 		private readonly Mock<IConfigReader> _mockConfigReader = new Mock<IConfigReader>();
 		private bool _refreshedConfiguration;
 
@@ -22,7 +23,7 @@ namespace UnityFeedbackTest.Configuration
 				ConfigurationConstants.Attribute.VALUE)).Returns("SqlServer");
 			this._mockConfigReader.Setup(foo => foo.RefreshConfiguration())
 				.Callback(() => { this._refreshedConfiguration = true; });
-			this._appSettings = new AppSettings(_mockConfigReader.Object);
+			this._settings = new Settings(_mockConfigReader.Object);
 		}
 
 		[TestCase("SqlServer", DatabaseProvider.SqlServer)]
@@ -36,7 +37,7 @@ namespace UnityFeedbackTest.Configuration
 				ConfigurationConstants.Attribute.VALUE)).Returns(databaseProvider);
 
 			// Act
-			var actual = _appSettings.DatabaseProvider();
+			var actual = _settings.DatabaseProvider();
 			
 			// Assert
 			Assert.AreEqual(expected, actual);
@@ -52,14 +53,14 @@ namespace UnityFeedbackTest.Configuration
 				ConfigurationConstants.Attribute.VALUE)).Returns(databaseProvider);
 
 			// Act & Assert
-			Assert.Throws<ArgumentException>(() => _appSettings.DatabaseProvider());
+			Assert.Throws<ArgumentException>(() => _settings.DatabaseProvider());
 		}
 
 		[Test]
 		public void ShouldNotRefreshConfigurationWhenUseCache()
 		{
 			// Act
-			this._appSettings.DatabaseProvider(useCache: true);
+			this._settings.DatabaseProvider(useCache: true);
 
 			// Assert
 			Assert.False(this._refreshedConfiguration);
@@ -69,7 +70,7 @@ namespace UnityFeedbackTest.Configuration
 		public void ShouldRefreshConfiguration()
 		{
 			// Act
-			this._appSettings.DatabaseProvider(useCache: false);
+			this._settings.DatabaseProvider(useCache: false);
 
 			// Assert
 			Assert.True(this._refreshedConfiguration);

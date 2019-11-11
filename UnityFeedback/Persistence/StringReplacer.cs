@@ -30,7 +30,7 @@ namespace UnityFeedback.Persistence
 		/// Replaces all occurrences of all <see cref="StringsToReplace"/> keys with values in files that match fileName parameter.
 		/// </summary>
 		/// <param name="fileName">Optional name of file in which replacement should be performed (supports regex). By default this will match all files.</param>
-		public void DoSwap(string fileName = @".*")
+		public void Replace(string fileName = @".*")
 		{
 			if (this.StringsToReplace.Count == 0)
 			{

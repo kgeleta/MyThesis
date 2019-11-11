@@ -7,7 +7,7 @@ namespace UnityFeedback.Configuration
 	/// <summary>
 	/// This class can be used to generate default configuration file
 	/// </summary>
-	public class ConfigFileGenerator
+	public class ConfigFileCreator
 	{
 		/// <summary>
 		/// This method creates configuration file with default properties.
@@ -16,7 +16,7 @@ namespace UnityFeedback.Configuration
 		/// <param name="fileName">Name of the configuration file without extension.</param>
 		/// <param name="overrideFileIfExists">Optional flag, by default set to false.</param>
 		/// <returns>True if configuration file was successfully created; false otherwise.</returns>
-		public static bool Generate(string path, string fileName, bool overrideFileIfExists = false)
+		public static bool Create(string path, string fileName, bool overrideFileIfExists = false)
 		{
 			var fullPath = $@"{path}\{fileName}.xml";
 			if (!overrideFileIfExists && File.Exists(fullPath))

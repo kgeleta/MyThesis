@@ -7,9 +7,9 @@ namespace UnityFeedback.Persistence
 {
 
 	/// <summary>
-	/// Provides methods and properties used to generate model classes from database schema from <see cref="AppSettings.ConnectionString"/>.
+	/// Provides methods and properties used to generate model classes from database schema from <see cref="Settings.ConnectionString"/>.
 	/// </summary>
-	public class ModelGenerator
+	public class ModelCreator
 	{
 		private readonly StringBuilder _errorBuilder = new StringBuilder();
 		private readonly string _powerShellPath;
@@ -23,9 +23,9 @@ namespace UnityFeedback.Persistence
 
 		#endregion
 
-		#region Constractors
+		#region Constructors
 
-		public ModelGenerator(string powerShellPath)
+		public ModelCreator(string powerShellPath)
 		{
 			this._powerShellPath = powerShellPath;
 		}
@@ -33,11 +33,11 @@ namespace UnityFeedback.Persistence
 		#endregion
 
 		/// <summary>
-		/// Generates model classes to \Assets\Models directory.
+		/// Creates model classes to \Assets\Models directory.
 		/// </summary>
 		/// <param name="provider">Database provider.</param>
 		/// <param name="connectionString">Connection string from database.</param>
-		public GenerationResult Generate(DatabaseProvider provider, string connectionString)
+		public ResultInformation Create(DatabaseProvider provider, string connectionString)
 		{
 			var psi = new ProcessStartInfo(this._powerShellPath, ConfigurationConstants.InternalConstants.MODEL_SCRIPT_PATH)
 			{
@@ -59,7 +59,7 @@ namespace UnityFeedback.Persistence
 				OnOutputReceived(new OutputEventArgs(OutputType.StandardOutput, args.Data));
 			process.ErrorDataReceived += (sender, args) =>
 				OnOutputReceived(new OutputEventArgs(OutputType.StandardError, args.Data));
-			var result = new GenerationResult();
+			var result = new ResultInformation();
 			var started = false;
 			try
 			{
@@ -118,7 +118,7 @@ namespace UnityFeedback.Persistence
 			handler?.Invoke(this, e);
 		}
 
-		public struct GenerationResult
+		public struct ResultInformation
 		{
 			public ExitStatus ExitStatus;
 			public string ErrorMessage;

@@ -133,15 +133,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\AppSettings.cs" />
-    <Compile Include="Configuration\ConfigFileGenerator.cs" />
+    <Compile Include="Configuration\Settings.cs" />
+    <Compile Include="Configuration\ConfigFileCreator.cs" />
     <Compile Include="Configuration\ConfigReaderString.cs" />
     <Compile Include="Configuration\ConfigurationConstants.cs" />
     <Compile Include="Configuration\XmlValidator.cs" />
     <Compile Include="Configuration\IConfigReader.cs" />
+    <Compile Include="FeedbackAPI.cs" />
     <Compile Include="Persistence\DatabaseProvider.cs" />
     <Compile Include="Persistence\ExitStatus.cs" />
-    <Compile Include="Persistence\ModelGenerator.cs" />
+    <Compile Include="Persistence\ModelCreator.cs" />
     <Compile Include="Persistence\OutputEventArgs.cs" />
     <Compile Include="Persistence\OutputType.cs" />
     <Compile Include="Persistence\StringReplacer.cs" />
@@ -165,6 +166,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="generateModel.ps1" />
     <None Include="packages.config" />
   </ItemGroup>
 </Project>

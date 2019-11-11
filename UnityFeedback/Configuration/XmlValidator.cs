@@ -7,33 +7,50 @@ namespace UnityFeedback.Configuration
 {
 	public class XmlValidator
 	{
+		private readonly XmlSchemaSet _schema;
+
+		public XmlValidator(string schema)
+		{
+			this._schema = new XmlSchemaSet();
+			this._schema.Add(null, XmlReader.Create(new StringReader(schema)));
+		}
+
 		/// <summary>
-		/// Validates xml against a given schema. Returns true if xml is valid, throws <see cref="XmlException"/> otherwise.
+		/// Validates xml against a schema.
 		/// </summary>
 		/// <param name="xml">Xml string.</param>
-		/// <param name="schema">Xsd string.</param>
-		public static bool Validate(string xml, string schema)
+		/// <returns>Struct indicating weather xml is valid and error message if it's not.</returns>
+		public ResultInformation Validate(string xml)
 		{
-//			string schema = Properties.Resources.schema;
-//			Console.WriteLine(schema);
-
-			if (string.IsNullOrEmpty(xml) || string.IsNullOrEmpty(schema))
+			if (string.IsNullOrEmpty(xml))
 			{
 				throw new ArgumentException();
 			}
 
-			XmlSchemaSet schemaSet = new XmlSchemaSet();
-			schemaSet.Add(null, XmlReader.Create(new StringReader(schema)));
-
-			XmlDocument document = new XmlDocument
+			try
 			{
-				Schemas = schemaSet
-			};
+				XmlDocument document = new XmlDocument
+				{
+					Schemas = this._schema
+				};
 
-			document.LoadXml(xml);
-			document.Validate((o, e) => throw new XmlException(e.Message));
+				document.LoadXml(xml);
 
-			return true;
+				document.Validate((o, e) => throw new XmlException(e.Message));
+			}
+			catch (Exception e)
+			{
+				return new ResultInformation
+					{ IsValid = false, ErrorMessage = e.Message };
+			}
+
+			return new ResultInformation { IsValid = true, ErrorMessage = string.Empty};
+		}
+
+		public struct ResultInformation
+		{
+			public bool IsValid;
+			public string ErrorMessage;
 		}
 	}
 }
