@@ -2,6 +2,7 @@
 using System.CodeDom;
 using System.CodeDom.Compiler;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityFeedback.Configuration;
@@ -13,6 +14,7 @@ namespace UnityFeedback
 	{
 		private static readonly Lazy<Settings> LazySettings = new Lazy<Settings>(InitSettings);
 		private static readonly XmlValidator Validator = new XmlValidator(Properties.Resources.Schema);
+		private static readonly Regex progressPattern = new Regex(@"Progress ([0-9]+)");
 
 		#region Events
 
@@ -20,6 +22,11 @@ namespace UnityFeedback
 		/// Subscribe to receive standard output and standard error from <see cref="ModelCreator"/>.
 		/// </summary>
 		public static event EventHandler<OutputEventArgs> ModelCreatorOutput;
+
+		/// <summary>
+		/// Subscribe to receive information on <see cref="ModelCreator"/> progress.
+		/// </summary>
+		public static event EventHandler<ProgressEventArgs> ModelCreatorProgress; 
 
 		#endregion
 
@@ -90,8 +97,22 @@ namespace UnityFeedback
 
 		protected static void OnModelCreatorOutput(object sender, OutputEventArgs e)
 		{
-			var handler = ModelCreatorOutput;
-			handler?.Invoke(sender, e);
+			Match match = progressPattern.Match(e.Data);
+			if (match.Success)
+			{
+				try
+				{
+					var progress = float.Parse(match.Groups[1].Value,
+						System.Globalization.CultureInfo.InvariantCulture)/100;
+					ModelCreatorProgress?.Invoke(sender, new ProgressEventArgs(progress));
+				}
+				catch (Exception)
+				{}
+			}
+			else
+			{
+				ModelCreatorOutput?.Invoke(sender, e);
+			}
 		}
 
 		private static void ReplaceConnectionStringInModelClasses(string connectionString, string pathToModelDirectory)

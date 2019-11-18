@@ -169,6 +169,7 @@
     <Compile Include="Persistence\ModelCreator.cs" />
     <Compile Include="Persistence\OutputEventArgs.cs" />
     <Compile Include="Persistence\OutputType.cs" />
+    <Compile Include="Persistence\ProgressEventArgs.cs" />
     <Compile Include="Persistence\StringReplacer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
