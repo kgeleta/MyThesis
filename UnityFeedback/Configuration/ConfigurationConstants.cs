@@ -25,7 +25,7 @@
 
         internal class InternalConstants
         {
-	        public const string MODEL_SCRIPT_PATH = "powershell/generateModel.ps1";
+	        public const string MODEL_SCRIPT_PATH = @"Assets\Resources\generateModel.ps1";
 
         }
     }
