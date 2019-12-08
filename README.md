@@ -5,9 +5,10 @@
 - dotnet 2.2 or later
 
 Open PowerShell in cloned repository and run:
-`./build.ps1 "path_to_your_unity_project"`
+`./build.ps1`
 
-Required parameter is path to your unity project main directory (one that contains Assets directory and .net solution file)
+To run unit tests before building run:
+`./build.ps1 -test`
 
 ## Known issues
 
