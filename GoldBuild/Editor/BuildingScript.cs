@@ -5,23 +5,23 @@ using UnityFeedback;
 
 namespace Assets.Editor
 {
-	public class BuildingScript {
-//        [MenuItem("MyTools/Windows Build With Postprocess")]
-        public static void BuildGame()
-        {
-            // Get filename.
-            string path = EditorUtility.SaveFolderPanel("Choose Location of Built Game", "", "");
-           // string configSourcePath = $@"{Application.dataPath}\Configuration\BuildConfig.xml";
-           // string configDestinationPath = $@"{Application.persistentDataPath}\BuildConfig.xml";
+	public class BuildingScript
+	{
+		[MenuItem("Feedback/Build for Windows")]
+		public static void BuildGame()
+		{
+			// Get filepath.
+			string path = EditorUtility.SaveFolderPanel("Choose Location of Built Game", "", "");
 
-            // copy config file
-            //File.Copy(configSourcePath, configDestinationPath, true);
+			if (path.Length != 0)
+			{
+				// get scenes
+				string[] scenes = FeedbackAPI.Settings.Scenes();
 
-			// get scenes
-			string[] scenes = FeedbackAPI.Settings.Scenes(); //ConfigReader.ReadScenes(configSourcePath);
-                     
-            // Build player.
-            BuildPipeline.BuildPlayer(scenes, path + "/BuiltGame.exe", BuildTarget.StandaloneWindows, BuildOptions.None);
-        }
-    }
+				// Build player.
+				BuildPipeline.BuildPlayer(scenes, path + "/BuiltGame.exe", BuildTarget.StandaloneWindows, BuildOptions.None);
+
+			}
+		}
+	}
 }
