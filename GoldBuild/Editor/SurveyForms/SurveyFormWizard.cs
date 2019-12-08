@@ -52,7 +52,7 @@ namespace Assets.Editor
 
 			foreach (var contextType in _contextTypes)
 			{
-				if (GUILayout.Button(contextType.Name, GUILayout.Width(100)))
+				if (GUILayout.Button(contextType.Name))
 				{
 					this._selectedContextType = contextType;
 				}
@@ -70,7 +70,7 @@ namespace Assets.Editor
 			{
 				foreach (var entityClass in ClassesInformation.GetEntitiesOfContext(this._selectedContextType))
 				{
-					if (GUILayout.Button(entityClass.PropertyType.GetGenericArguments()[0].Name, GUILayout.Width(100)))
+					if (GUILayout.Button(entityClass.PropertyType.GetGenericArguments()[0].Name))
 					{
 						this._selectedEntityType = entityClass.PropertyType.GetGenericArguments()[0];
 						var properties = new List<PropertyInfo>(this._selectedEntityType.GetProperties());
@@ -136,9 +136,9 @@ namespace Assets.Editor
 				AssetDatabase.Refresh();
 
 				GameObject placeHolder = new GameObject("Scripts");
-				EditorUtility.DisplayDialog("Information", $"Add {className} script to Scripts GameObject", "Ok");
 				this.Close();
-				
+				EditorUtility.DisplayDialog("Information", $"Add {className} script to Scripts GameObject", "Ok");
+
 			}
 
 			GUILayout.EndHorizontal();
