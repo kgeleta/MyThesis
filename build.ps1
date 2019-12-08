@@ -2,6 +2,7 @@
     [Parameter(Mandatory=$false)][switch]$test
   )
 
+  dotnet restore --configfile UnityFeedback\packages.config
   # run unit test
   if($test -eq $true)
   {
