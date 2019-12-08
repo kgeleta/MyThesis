@@ -135,7 +135,7 @@
   &lt;databaseProvider value="SqlServer"/&gt;
   &lt;!-- &lt;databaseProvider value="MySql"/&gt; --&gt;
   &lt;!-- &lt;databaseProvider value="SQLite"/&gt; --&gt;
-  &lt;!-- &lt;databaseProvider value="SQLite"/&gt; --&gt;
+  &lt;!-- &lt;databaseProvider value="PostgreSQL"/&gt; --&gt;
 &lt;/config&gt;</value>
   </data>
   <data name="Schema" xml:space="preserve">
