@@ -12,7 +12,7 @@ namespace UnityFeedback
 {
 	public class FeedbackAPI
 	{
-		private static readonly Lazy<Configuration.Configuration> LazySettings = new Lazy<Configuration.Configuration>(InitSettings);
+		private static readonly Lazy<Configuration.Configuration> LazyConfiguration = new Lazy<Configuration.Configuration>(InitSettings);
 		private static readonly XmlValidator Validator = new XmlValidator(Properties.Resources.Schema);
 		private static readonly Regex progressPattern = new Regex(@"Progress ([0-9]+)");
 
@@ -35,7 +35,7 @@ namespace UnityFeedback
 		/// <summary>
 		/// Lazy loaded settings.
 		/// </summary>
-		public static Configuration.Configuration Configuration => LazySettings.Value;
+		public static Configuration.Configuration Configuration => LazyConfiguration.Value;
 
 		#endregion
 
