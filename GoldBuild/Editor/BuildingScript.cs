@@ -16,7 +16,7 @@ namespace Assets.Editor
 			if (path.Length != 0)
 			{
 				// get scenes
-				string[] scenes = FeedbackAPI.Settings.Scenes();
+				string[] scenes = FeedbackAPI.Configuration.Scenes();
 
 				// Build player.
 				BuildPipeline.BuildPlayer(scenes, path + "/BuiltGame.exe", BuildTarget.StandaloneWindows, BuildOptions.None);

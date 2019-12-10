@@ -12,7 +12,7 @@ public class ConnectionTest
 	{
 		try
 		{
-			using (SqlConnection connection = new SqlConnection(FeedbackAPI.Settings.ConnectionString(false)))
+			using (SqlConnection connection = new SqlConnection(FeedbackAPI.Configuration.ConnectionString(false)))
 			{
 				connection.Open(); // throws if invalid
 				EditorUtility.DisplayDialog("Connection test", $"Successfully connected to database", "Ok");
