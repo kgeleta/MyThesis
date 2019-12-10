@@ -159,7 +159,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\Settings.cs" />
+    <Compile Include="Configuration\Configuration.cs" />
     <Compile Include="Configuration\ConfigFileCreator.cs" />
     <Compile Include="Configuration\ConfigReaderString.cs" />
     <Compile Include="Configuration\ConfigurationConstants.cs" />

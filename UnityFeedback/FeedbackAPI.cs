@@ -12,7 +12,7 @@ namespace UnityFeedback
 {
 	public class FeedbackAPI
 	{
-		private static readonly Lazy<Settings> LazySettings = new Lazy<Settings>(InitSettings);
+		private static readonly Lazy<Configuration.Configuration> LazySettings = new Lazy<Configuration.Configuration>(InitSettings);
 		private static readonly XmlValidator Validator = new XmlValidator(Properties.Resources.Schema);
 		private static readonly Regex progressPattern = new Regex(@"Progress ([0-9]+)");
 
@@ -35,7 +35,7 @@ namespace UnityFeedback
 		/// <summary>
 		/// Lazy loaded settings.
 		/// </summary>
-		public static Settings Settings => LazySettings.Value;
+		public static Configuration.Configuration Configuration => LazySettings.Value;
 
 		#endregion
 
@@ -64,9 +64,9 @@ namespace UnityFeedback
 		public static Task<ModelCreator.ResultInformation> GetModelCreatorTask()
 		{
 			// This is because UnityEngine methods can be only called from main thread
-			var powerShellPath = Settings.PowerShellPath(false);
-			var databaseProvider = Settings.DatabaseProvider(false);
-			var connectionString = Settings.ConnectionString(false);
+			var powerShellPath = Configuration.PowerShellPath(false);
+			var databaseProvider = Configuration.DatabaseProvider(false);
+			var connectionString = Configuration.ConnectionString(false);
 			var pathToModelDirectory = $@"{Application.dataPath}/Model";
 
 			return new Task<ModelCreator.ResultInformation>(() =>
@@ -121,15 +121,15 @@ namespace UnityFeedback
 
 			stringReplacer.StringsToReplace.Add(ConfigurationConstants.WARNING_MESSAGE, string.Empty);
 			stringReplacer.StringsToReplace.Add(ToLiteral(connectionString),
-				$@"{typeof(FeedbackAPI).FullName}.{nameof(Settings)}.{nameof(Settings.ConnectionString)}()");
+				$@"{typeof(FeedbackAPI).FullName}.{nameof(Configuration)}.{nameof(Configuration.ConnectionString)}()");
 
 			stringReplacer.Replace(".*Context.*");
 		}
 
-		private static Settings InitSettings()
+		private static Configuration.Configuration InitSettings()
 		{
 			var configReader = new ConfigReaderString(() => Resources.Load<TextAsset>(ConfigurationConstants.CONFIG_FILE_NAME).text);
-			return new Settings(configReader);
+			return new Configuration.Configuration(configReader);
 		}
 
 		private static string ToLiteral(string input)

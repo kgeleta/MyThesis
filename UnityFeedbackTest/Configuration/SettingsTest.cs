@@ -10,7 +10,7 @@ namespace UnityFeedbackTest.Configuration
 	[TestFixture]
 	public class SettingsTest
 	{
-		private Settings _settings;
+		private UnityFeedback.Configuration.Configuration _configuration;
 		private readonly Mock<IConfigReader> _mockConfigReader = new Mock<IConfigReader>();
 		private bool _refreshedConfiguration;
 
@@ -23,7 +23,7 @@ namespace UnityFeedbackTest.Configuration
 				ConfigurationConstants.Attribute.VALUE)).Returns("SqlServer");
 			this._mockConfigReader.Setup(foo => foo.RefreshConfiguration())
 				.Callback(() => { this._refreshedConfiguration = true; });
-			this._settings = new Settings(_mockConfigReader.Object);
+			this._configuration = new UnityFeedback.Configuration.Configuration(_mockConfigReader.Object);
 		}
 
 		[TestCase("SqlServer", DatabaseProvider.SqlServer)]
@@ -37,7 +37,7 @@ namespace UnityFeedbackTest.Configuration
 				ConfigurationConstants.Attribute.VALUE)).Returns(databaseProvider);
 
 			// Act
-			var actual = _settings.DatabaseProvider();
+			var actual = _configuration.DatabaseProvider();
 			
 			// Assert
 			Assert.AreEqual(expected, actual);
@@ -53,14 +53,14 @@ namespace UnityFeedbackTest.Configuration
 				ConfigurationConstants.Attribute.VALUE)).Returns(databaseProvider);
 
 			// Act & Assert
-			Assert.Throws<ArgumentException>(() => _settings.DatabaseProvider());
+			Assert.Throws<ArgumentException>(() => _configuration.DatabaseProvider());
 		}
 
 		[Test]
 		public void ShouldNotRefreshConfigurationWhenUseCache()
 		{
 			// Act
-			this._settings.DatabaseProvider(useCache: true);
+			this._configuration.DatabaseProvider(useCache: true);
 
 			// Assert
 			Assert.False(this._refreshedConfiguration);
@@ -70,7 +70,7 @@ namespace UnityFeedbackTest.Configuration
 		public void ShouldRefreshConfiguration()
 		{
 			// Act
-			this._settings.DatabaseProvider(useCache: false);
+			this._configuration.DatabaseProvider(useCache: false);
 
 			// Assert
 			Assert.True(this._refreshedConfiguration);

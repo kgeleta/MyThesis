@@ -6,7 +6,7 @@ namespace UnityFeedback.Configuration
 	/// <summary>
 	/// This class provides thread safe access to settings from configuration file.
 	/// </summary>
-	public class Settings
+	public class Configuration
 	{
 		private readonly IConfigReader _configReader;
 		private readonly object _lockObject = new object();
@@ -20,7 +20,7 @@ namespace UnityFeedback.Configuration
 
 		#endregion
 
-		public Settings(IConfigReader configReader)
+		public Configuration(IConfigReader configReader)
 		{
 			this._configReader = configReader;
 		}
@@ -127,17 +127,5 @@ namespace UnityFeedback.Configuration
 
 			return _powerShellPath;
 		}
-
-		//		/// <summary>
-		//		/// Validates configuration file.
-		//		/// </summary>
-		//		/// <returns>True if configuration file is valid; False otherwise.</returns>
-		//		public static bool ValidateConfiguration()
-		//		{
-		//			var xml = Resources.Load<TextAsset>(ConfigurationConstants.CONFIG_FILE_NAME).text;
-		//			var schema = Properties.Resources.Schema;
-		//
-		//			return XmlValidator.Validate(xml, schema);
-		//		}
 	}
 }

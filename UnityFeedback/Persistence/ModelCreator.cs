@@ -7,7 +7,7 @@ namespace UnityFeedback.Persistence
 {
 
 	/// <summary>
-	/// Provides methods and properties used to generate model classes from database schema from <see cref="Settings.ConnectionString"/>.
+	/// Provides methods and properties used to generate model classes from database schema from <see cref="Configuration.ConnectionString"/>.
 	/// </summary>
 	public class ModelCreator
 	{
@@ -39,7 +39,6 @@ namespace UnityFeedback.Persistence
 		/// <param name="connectionString">Connection string from database.</param>
 		public ResultInformation Create(DatabaseProvider provider, string connectionString)
 		{
-			// TODO: invalid connection string should throw exception
 			var psi = new ProcessStartInfo(this._powerShellPath, ConfigurationConstants.InternalConstants.MODEL_SCRIPT_PATH)
 			{
 				UseShellExecute = false,
