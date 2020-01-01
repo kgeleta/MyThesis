@@ -16,6 +16,11 @@ To run unit tests before building run:
 
 Copy files from GoldBuild directory to your Unity project directory and open project.
 
+### Requirements:
+- PowerShell 5.1 or later (for Linux users: [PowerShell Core 6.0](https://docs.microsoft.com/en-gb/powershell/scripting/install/installing-powershell-core-on-linux?view=powershell-6))
+- Unity 2019.2 or later
+- SqlServer, PostgreSQL, MySQL or SQLite database
+
 ## Known issues
 
 - Unity has problem with SQL Server Express - generating model classes will work but data won't be persisted. Use the full version of SQL Server or different database provider
